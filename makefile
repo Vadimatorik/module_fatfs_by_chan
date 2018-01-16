@@ -1,3 +1,7 @@
+ifndef MODULE_FAT_FS_OPTIMIZATION
+	MODULE_FAT_FS_OPTIMIZATION = -g3 -O0
+endif
+
 #**********************************************************************
 # Для сборки FatFS.
 #**********************************************************************
@@ -11,7 +15,7 @@ FAT_FS_OBJ_FILE			:= $(patsubst %.c, %.o, $(FAT_FS_OBJ_FILE))
 build/obj/module_fatfs_by_chan/%.o:	module_fatfs_by_chan/%.c $(USER_CFG_H_FILE)
 	@echo [CC] $<
 	@mkdir -p $(dir $@)
-	@$(CC) $(C_FAT_FS_FLAGS) $(FAT_FS_PATH) $(USER_CFG_PATH) $(FAT_FS_OPTIMIZATION) -c $< -o $@
+	@$(CC) $(C_FLAGS) $(FAT_FS_PATH) $(USER_CFG_PATH) $(MODULE_FAT_FS_OPTIMIZATION) -c $< -o $@
 
 # Добавляем к общим переменным проекта.
 PROJECT_PATH			+= $(FAT_FS_PATH)
