@@ -126,7 +126,8 @@ typedef struct {
 	DWORD	winsect;		/* Current sector appearing in the win[] */
 
 	/// Обязательное выравнивание по границе 4 байта.
-	__attribute__((__aligned__(4))) BYTE	win[FF_MAX_SS];	/* Disk access window for Directory, FAT (and file data at tiny cfg) */
+	__attribute__((__aligned__(4)))
+	BYTE	win[FF_MAX_SS];	/* Disk access window for Directory, FAT (and file data at tiny cfg) */
 } FATFS;
 
 
