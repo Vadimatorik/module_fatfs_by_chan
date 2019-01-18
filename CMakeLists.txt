@@ -8,9 +8,9 @@ project(FATFS)
 # проекта (библиотеки) заданы.
 # Они должны быть заданы в корневом проекте.
 # Пример:
-# SET (FATFS_OPTIMIZATION_FLAGS "-O0;-g3;")
-if (NOT DEFINED FATFS_OPTIMIZATION_FLAGS)
-    message(FATAL_ERROR "The value of the variable <<FATFS_OPTIMIZATION_FLAGS>> is not specified!")
+# SET (${PROJECT_NAME}_OPTIMIZATION_FLAGS "-O0;-g3;")
+if (NOT DEFINED ${PROJECT_NAME}_OPTIMIZATION_FLAGS)
+    message(FATAL_ERROR "The value of the variable <<${PROJECT_NAME}_OPTIMIZATION_FLAGS>> is not specified!")
 endif ()
 
 # Производится проверка на то, что параметры аппаратной
@@ -18,38 +18,38 @@ endif ()
 # Они должны быть заданы в корневом проекте.
 # Параметры должны быть обязательно разделены через <<;>>.
 # Пример:
-# SET (FATFS_COMPILER_FLAGS "${COMMON_FLAGS};-std=gnu99;-fshort-enums;")
-if (NOT DEFINED FATFS_COMPILER_FLAGS)
-    message(FATAL_ERROR "The value of the variable <<FATFS_COMPILER_FLAGS>> is not specified!")
+# SET (${PROJECT_NAME}_COMPILER_FLAGS "${COMMON_FLAGS};-std=gnu99;-fshort-enums;")
+if (NOT DEFINED ${PROJECT_NAME}_COMPILER_FLAGS)
+    message(FATAL_ERROR "The value of the variable <<${PROJECT_NAME}_COMPILER_FLAGS>> is not specified!")
 endif ()
 
-# Для сборки проекта FATFS требуется обязательно указать путь
-# до папки с файлом конфигурации библиотеки FATFS в проекте
+# Для сборки проекта ${PROJECT_NAME} требуется обязательно указать путь
+# до папки с файлом конфигурации библиотеки ${PROJECT_NAME} в проекте
 # пользователя (в корневом CMakeList).
 # Пример:
-# SET (FATFS_CFG_H_PATH ${CMAKE_SOURCE_DIR}/cfg)
-if (NOT DEFINED FATFS_CFG_H_PATH)
-    message(FATAL_ERROR "The value of the variable <<FATFS_CFG_H_PATH>> is not specified!")
+# SET (${PROJECT_NAME}_CFG_H_PATH ${CMAKE_SOURCE_DIR}/cfg)
+if (NOT DEFINED ${PROJECT_NAME}_CFG_H_PATH)
+    message(FATAL_ERROR "The value of the variable <<${PROJECT_NAME}_CFG_H_PATH>> is not specified!")
 endif()
 
 include_directories(
     # Для сборки требуется файл конфигурации библиотеки пользователем в корневом проекте.
-    ${FATFS_CFG_H_PATH}
+    ${${PROJECT_NAME}_CFG_H_PATH}
     ${CMAKE_CURRENT_SOURCE_DIR}/inc
 )
 
 # Компиляции полежат все <<.c>> файлы из директории src.
-file(GLOB FATFS_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c")
+file(GLOB ${PROJECT_NAME}_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c")
 
 # Собираем библиотеку из .obj файлов, полученных из файлов, добавленных выше.
-add_library(${PROJECT_NAME} ${FATFS_SOURCES})
+add_library(${PROJECT_NAME} ${${PROJECT_NAME}_SOURCES})
 
 # Компиляция файлов происходит по флагам из корневого CMakeList.
-target_compile_options(${PROJECT_NAME} PRIVATE "${FATFS_COMPILER_FLAGS}${FATFS_OPTIMIZATION_FLAGS}")
+target_compile_options(${PROJECT_NAME} PRIVATE "${${PROJECT_NAME}_COMPILER_FLAGS}${${PROJECT_NAME}_OPTIMIZATION_FLAGS}")
 
 # Показ флагов компиляции.
 add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
-                    COMMENT "${PROJECT_NAME} flags: ${FATFS_COMPILER_FLAGS}${FATFS_OPTIMIZATION_FLAGS}")
+                    COMMENT "${PROJECT_NAME} flags: ${${PROJECT_NAME}_COMPILER_FLAGS}${${PROJECT_NAME}_OPTIMIZATION_FLAGS}")
 
 # Вывод коммита.
 add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
