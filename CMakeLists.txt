@@ -1,8 +1,8 @@
 # Минимально необходимая для сборки версия cmake.
-CMAKE_MINIMUM_REQUIRED(VERSION 3.13.2)
+CMAKE_MINIMUM_REQUIRED (VERSION 3.13.2)
 
 # Имя библиотеки.
-project(FATFS)
+project (FATFS)
 
 # Производится проверка на то, что параметры оптимизации
 # проекта (библиотеки) заданы.
@@ -10,7 +10,8 @@ project(FATFS)
 # Пример:
 # SET (${PROJECT_NAME}_OPTIMIZATION_FLAGS "-O0;-g3;")
 if (NOT DEFINED ${PROJECT_NAME}_OPTIMIZATION_FLAGS)
-    message(FATAL_ERROR "The value of the variable <<${PROJECT_NAME}_OPTIMIZATION_FLAGS>> is not specified!")
+    message (FATAL_ERROR
+             "The value of the variable <<${PROJECT_NAME}_OPTIMIZATION_FLAGS>> is not specified!")
 endif ()
 
 # Производится проверка на то, что параметры аппаратной
@@ -20,7 +21,8 @@ endif ()
 # Пример:
 # SET (${PROJECT_NAME}_COMPILER_FLAGS "${COMMON_FLAGS};-std=gnu99;-fshort-enums;")
 if (NOT DEFINED ${PROJECT_NAME}_COMPILER_FLAGS)
-    message(FATAL_ERROR "The value of the variable <<${PROJECT_NAME}_COMPILER_FLAGS>> is not specified!")
+    message (FATAL_ERROR
+             "The value of the variable <<${PROJECT_NAME}_COMPILER_FLAGS>> is not specified!")
 endif ()
 
 # Для сборки проекта ${PROJECT_NAME} требуется обязательно указать путь
@@ -29,7 +31,8 @@ endif ()
 # Пример:
 # SET (${PROJECT_NAME}_CFG_H_PATH ${CMAKE_SOURCE_DIR}/cfg)
 if (NOT DEFINED ${PROJECT_NAME}_CFG_H_PATH)
-    message(FATAL_ERROR "The value of the variable <<${PROJECT_NAME}_CFG_H_PATH>> is not specified!")
+    message (FATAL_ERROR
+             "The value of the variable <<${PROJECT_NAME}_CFG_H_PATH>> is not specified!")
 endif()
 
 include_directories(
@@ -39,17 +42,19 @@ include_directories(
 )
 
 # Компиляции полежат все <<.c>> файлы из директории src.
-file(GLOB ${PROJECT_NAME}_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c")
+file (GLOB ${PROJECT_NAME}_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c")
 
 # Собираем библиотеку из .obj файлов, полученных из файлов, добавленных выше.
-add_library(${PROJECT_NAME} ${${PROJECT_NAME}_SOURCES})
+add_library (${PROJECT_NAME} ${${PROJECT_NAME}_SOURCES})
 
 # Компиляция файлов происходит по флагам из корневого CMakeList.
-target_compile_options(${PROJECT_NAME} PRIVATE "${${PROJECT_NAME}_COMPILER_FLAGS}${${PROJECT_NAME}_OPTIMIZATION_FLAGS}")
+target_compile_options (${PROJECT_NAME} PRIVATE
+                        "${${PROJECT_NAME}_COMPILER_FLAGS}${${PROJECT_NAME}_OPTIMIZATION_FLAGS}")
 
 # Показ флагов компиляции.
 add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
-                    COMMENT "${PROJECT_NAME} flags: ${${PROJECT_NAME}_COMPILER_FLAGS}${${PROJECT_NAME}_OPTIMIZATION_FLAGS}")
+                    COMMENT "${PROJECT_NAME} flags:
+                    ${${PROJECT_NAME}_COMPILER_FLAGS}${${PROJECT_NAME}_OPTIMIZATION_FLAGS}")
 
 # Вывод коммита.
 add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
@@ -62,5 +67,3 @@ add_custom_command (TARGET ${PROJECT_NAME} POST_BUILD
                     COMMENT "${PROJECT_NAME} size information:"
                     COMMAND cd ${PROJECT_BINARY_DIR}
                     COMMAND ${ARM_SIZE} lib${PROJECT_NAME}.a -t)
-
-
