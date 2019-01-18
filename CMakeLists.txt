@@ -33,6 +33,7 @@ if (NOT DEFINED FATFS_CFG_H_PATH)
 endif()
 
 include_directories(
+    # Для сборки требуется файл конфигурации библиотеки пользователем в корневом проекте.
     ${FATFS_CFG_H_PATH}
     ${CMAKE_CURRENT_SOURCE_DIR}/inc
 )
