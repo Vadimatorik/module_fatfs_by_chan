@@ -8,7 +8,7 @@ project (FATFS)
 # проекта (библиотеки) заданы.
 # Они должны быть заданы в корневом проекте.
 # Пример:
-# SET (${PROJECT_NAME}_OPTIMIZATION_FLAGS "-O0;-g3;")
+# SET (FATFS_OPTIMIZATION_FLAGS "-O0;-g3;")
 if (NOT DEFINED ${PROJECT_NAME}_OPTIMIZATION_FLAGS)
     message (FATAL_ERROR
              "The value of the variable <<${PROJECT_NAME}_OPTIMIZATION_FLAGS>> is not specified!")
@@ -19,17 +19,17 @@ endif ()
 # Они должны быть заданы в корневом проекте.
 # Параметры должны быть обязательно разделены через <<;>>.
 # Пример:
-# SET (${PROJECT_NAME}_COMPILER_FLAGS "${COMMON_FLAGS};-std=gnu99;-fshort-enums;")
+# SET (FATFS_COMPILER_FLAGS "${COMMON_FLAGS};-std=gnu99;-fshort-enums;")
 if (NOT DEFINED ${PROJECT_NAME}_COMPILER_FLAGS)
     message (FATAL_ERROR
              "The value of the variable <<${PROJECT_NAME}_COMPILER_FLAGS>> is not specified!")
 endif ()
 
-# Для сборки проекта ${PROJECT_NAME} требуется обязательно указать путь
-# до папки с файлом конфигурации библиотеки ${PROJECT_NAME} в проекте
+# Для сборки проекта FATFS требуется обязательно указать путь
+# до папки с файлом конфигурации библиотеки FATFS в проекте
 # пользователя (в корневом CMakeList).
 # Пример:
-# SET (${PROJECT_NAME}_CFG_H_PATH ${CMAKE_SOURCE_DIR}/cfg)
+# SET (FATFS_CFG_H_PATH ${CMAKE_SOURCE_DIR}/cfg)
 if (NOT DEFINED ${PROJECT_NAME}_CFG_H_PATH)
     message (FATAL_ERROR
              "The value of the variable <<${PROJECT_NAME}_CFG_H_PATH>> is not specified!")
