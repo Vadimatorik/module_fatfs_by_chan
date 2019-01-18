@@ -1,3 +1,7 @@
+# Минимально необходимая для сборки версия cmake.
+CMAKE_MINIMUM_REQUIRED(VERSION 3.13.2)
+
+# Имя библиотеки.
 project(FATFS)
 
 # Производится проверка на то, что параметры оптимизации
@@ -33,8 +37,10 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/inc
 )
 
+# Компиляции полежат все <<.c>> файлы из директории src.
 file(GLOB FATFS_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c")
 
+# Собираем библиотеку из .obj файлов, полученных из файлов, добавленных выше.
 add_library(${PROJECT_NAME} ${FATFS_SOURCES})
 
 # Компиляция файлов происходит по флагам из корневого CMakeList.
