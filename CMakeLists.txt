@@ -42,13 +42,12 @@ include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/fat/inc
 )
 
-# Компиляции полежат все <<.c>> файлы из директории src.
 file(GLOB ${PROJECT_NAME}_SOURCES
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/fat/src/*.cpp")
 
 # Собираем библиотеку из .obj файлов, полученных из файлов, добавленных выше.
-add_library(${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SOURCES})
+add_library(${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SOURCES} ${${PROJECT_NAME}_HEADER})
 
 # Компиляция файлов происходит по флагам из корневого CMakeList.
 target_compile_options(${PROJECT_NAME} PRIVATE
